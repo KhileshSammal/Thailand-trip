@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Lens & Latitude | Phuket Expedition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            letter-spacing: -0.01em; 
+            background-color: #000000;
+            color: #e2e8f0;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .grain {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.04; pointer-events: none; z-index: 50;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.5); border-radius: 10px; }
+        
+        .selection\:bg-amber-400 ::selection { background-color: #fbbf24; color: black; }
+
+        .day-button.active {
+            background-color: #fbbf24;
+            border-color: #fbbf24;
+            color: black;
+            transform: translateX(4px);
+            box-shadow: 0 10px 15px -3px rgba(251, 191, 36, 0.3);
+        }
+
+        .day-button.active .day-label { color: rgba(0,0,0,0.7); }
+
+        .nav-link {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover { color: #fbbf24; }
+        
+        .amber-text { color: #fbbf24; }
+        .amber-bg { background-color: #fbbf24; }
+        .amber-border { border-color: #fbbf24; }
+
+        .directory-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .directory-card:hover {
+            background: rgba(251, 191, 36, 0.03);
+            border-color: rgba(251, 191, 36, 0.2);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="selection:bg-amber-400">
+    <div class="grain"></div>
+
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
+        <nav class="max-w-7xl mx-auto flex items-center justify-between bg-black/60 backdrop-blur-xl border border-white/5 rounded-2xl px-6 py-3">
+            <div class="flex items-center gap-4">
+                <div class="amber-bg text-black font-black text-xs h-8 w-8 flex items-center justify-center rounded-lg shadow-lg">KS</div>
+                <div>
+                    <h2 class="text-white font-bold text-[10px] tracking-[0.2em] uppercase leading-none">Lens & Latitude</h2>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="nav-link amber-text">Home</a>
+                <a href="#itinerary" class="nav-link">Itinerary</a>
+                <a href="#directory" class="nav-link">Directory</a>
+                <a href="#ledger" class="nav-link">Ledger</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="https://www.instagram.com/mr.khilesh__/" target="_blank" class="text-white/50 hover:amber-text transition-colors">
+                    <i data-lucide="instagram" size="18"></i>
+                </a>
+                <a href="https://www.youtube.com/c/KhileshSammalVlogs2125" target="_blank" class="text-white/50 hover:amber-text transition-colors">
+                    <i data-lucide="youtube" size="18"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&q=80&w=2000" 
+                alt="Phuket Expedition" 
+                class="w-full h-full object-cover brightness-[0.2]"
+            />
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-6 max-w-5xl">
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <div class="h-[1px] w-12 bg-amber-400/30"></div>
+                <span class="text-[11px] font-bold tracking-[0.5em] uppercase amber-text">Series 01 • April Summer '25</span>
+                <div class="h-[1px] w-12 bg-amber-400/30"></div>
+            </div>
+            
+            <h1 class="text-7xl md:text-9xl font-bold text-white mb-6 tracking-tight italic">
+                Phuket <br/> <span class="text-amber-50 font-normal not-italic">Expedition</span>
+            </h1>
+            
+            <p class="text-white/50 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+                A curated exploration of Thailand's southern gem — from the neon pulse of Patong to the silent limestone giants of Phang Nga Bay.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-12 mt-12">
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400/60 uppercase tracking-widest block mb-2">Total Budget</span>
+                    <span class="text-2xl font-light text-white italic">₹95,000</span>
+                </div>
+                <div class="w-[1px] h-12 bg-white/10 hidden md:block"></div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400/60 uppercase tracking-widest block mb-2">Duration</span>
+                    <span class="text-2xl font-light text-white italic">05 Days</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-6 -mt-10 relative z-20">
+        
+        <!-- Itinerary Navigator -->
+        <section id="itinerary" class="mb-40 pt-20">
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Sidebar Navigation -->
+                <div class="lg:col-span-4 space-y-3 lg:sticky lg:top-28">
+                    <div class="mb-8">
+                        <h2 class="text-4xl italic mb-2">The Journey</h2>
+                        <p class="text-slate-500 text-sm font-medium uppercase tracking-widest">Tap to see details</p>
+                    </div>
+                    <div id="day-nav-container" class="space-y-2 max-h-[500px] overflow-y-auto custom-scrollbar pr-3">
+                        <!-- Navigation Buttons injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Content Panel -->
+                <div class="lg:col-span-8">
+                    <div id="itinerary-panel" class="glass-panel p-8 md:p-14 rounded-[2.5rem] min-h-[500px] flex flex-col justify-between border-white/10">
+                        <!-- Content injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Directory Section -->
+        <section id="directory" class="mb-40 pt-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <h2 class="text-6xl mb-4 italic">Directory</h2>
+                    <p class="text-slate-500 font-medium uppercase tracking-[0.2em] text-xs">Essential points of interest & logistics</p>
+                </div>
+                <div class="h-[1px] flex-grow bg-white/5 mb-4 hidden md:block mx-8"></div>
+                <div class="text-right">
+                    <span class="text-amber-400 font-mono text-sm">08 Key Locations</span>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4" id="directory-grid">
+                <!-- Directory Items injected via JS -->
+            </div>
+        </section>
+
+        <!-- Financial Section -->
+        <section id="ledger" class="mb-40 pt-10">
+            <div class="relative glass-panel rounded-[3rem] p-8 md:p-16 overflow-hidden border-white/10">
+                <div class="relative z-10 grid lg:grid-cols-2 gap-20">
+                    <div>
+                        <h2 class="text-6xl mb-8 italic">The Ledger</h2>
+                        <p class="text-slate-400 font-light leading-relaxed mb-12 text-lg">
+                            Comprehensive budget of <span class="text-white font-medium">₹95,000</span> covering flights, stays, local expeditions, and the April summer vibes.
+                        </p>
+                        
+                        <div class="space-y-8" id="categories-container"></div>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div class="bg-white/[0.03] rounded-[2.5rem] p-10 border border-white/5">
+                            <div class="flex items-center justify-between mb-10">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="receipt" size="20" class="amber-text"></i>
+                                    <h4 class="text-xs uppercase tracking-[0.3em] font-bold">Expenses on Ground</h4>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6" id="log-entries-container"></div>
+                            
+                            <div class="mt-10 pt-8 border-t border-white/10 flex justify-between items-center">
+                                <div>
+                                    <p class="amber-text/60 text-[10px] tracking-[0.4em] uppercase font-bold mb-2">Total Trip Investment</p>
+                                    <p class="text-4xl font-light italic text-white tracking-tighter">₹95,000</p>
+                                    <p class="text-[10px] text-slate-500 mt-2 uppercase">Full 5-Day Cycle</p>
+                                </div>
+                                <div class="h-16 w-16 rounded-full border border-amber-500/20 flex items-center justify-center relative">
+                                    <div class="absolute inset-0 bg-amber-500/5 animate-pulse rounded-full"></div>
+                                    <span class="amber-text font-bold text-[10px] uppercase">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Social Handles Footer -->
+    <footer id="contact" class="bg-white/[0.01] border-t border-white/5 pt-32 pb-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-20 items-end mb-24">
+                <div>
+                    <h2 class="text-7xl font-bold text-white italic mb-10">Social <br/><span class="amber-text not-italic">Handles</span></h2>
+                    <h3 class="text-2xl font-light text-white/90 mb-4">Stay connected with Khilesh</h3>
+                    <p class="text-slate-400 leading-relaxed max-w-lg mb-10">
+                        Follow updates, reels and full vlogs from this Phuket trip across Instagram and YouTube.
+                    </p>
+                </div>
+                
+                <div class="space-y-6">
+                    <p class="text-[10px] font-bold tracking-[0.4em] uppercase amber-text/50 mb-8">Where to follow the journey</p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <a href="https://www.instagram.com/mr.khilesh__/" target="_blank" class="glass-panel p-6 rounded-2xl flex items-center gap-4 hover:border-amber-400/30 transition-all group">
+                            <div class="bg-gradient-to-tr from-amber-400 to-amber-200 p-3 rounded-xl text-black">
+                                <i data-lucide="instagram" size="20"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:amber-text transition-colors">Instagram</span>
+                                <span class="block text-white font-medium text-sm">@mr.khilesh__</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://www.youtube.com/c/KhileshSammalVlogs2125" target="_blank" class="glass-panel p-6 rounded-2xl flex items-center gap-4 hover:border-amber-400/30 transition-all group">
+                            <div class="bg-gradient-to-tr from-red-500 to-red-400 p-3 rounded-xl text-white">
+                                <i data-lucide="youtube" size="20"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-red-400 transition-colors">YouTube</span>
+                                <span class="block text-white font-medium text-sm">Khilesh Sammal Vlogs</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/5 p-2 rounded-lg"><i data-lucide="compass" class="amber-text" size="16"></i></div>
+                    <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-white/40">Lens & Latitude — Phuket 2025</span>
+                </div>
+                <div class="text-[10px] font-bold tracking-[0.3em] uppercase text-white/20">
+                    © 2025 KHILESH SAMMAL. ALL RIGHTS RESERVED.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const itineraryData = [
+            { day: 1, date: "Day 01", title: "Arrival & Heritage", city: "Phuket Town", detail: "Arrival at HKT Airport. Check-in at Ramada Plaza Chao Fah. Evening exploration of Old Phuket Town's Sino-Portuguese architecture and local markets." },
+            { day: 2, date: "Day 02", title: "The Phi Phi Expedition", city: "Phi Phi Islands", detail: "Early morning speedboat transfer to Maya Bay. Snorkeling at Pileh Lagoon and lunch at Phi Phi Don. Return for sunset at the hotel." },
+            { day: 3, date: "Day 03", title: "Culture & Neon", city: "Big Buddha & Patong", detail: "Morning visit to the iconic Big Buddha and Wat Chalong. Transition to the neon pulse of Bangla Road, Patong for an evening of coastal energy." },
+            { day: 4, date: "Day 04", title: "Phang Nga Bay", city: "James Bond Island", detail: "Canoeing through limestone sea caves and visiting the famous James Bond Island. Exploring the floating Panyee Village." },
+            { day: 5, date: "Day 05", title: "Departure", city: "Phuket to Delhi", detail: "Final morning at leisure by the pool. Souvenir shopping at Jungceylon before heading to HKT for the return flight." }
+        ];
+
+        const directoryData = [
+            { category: "STAY", title: "Ramada Plaza Chao Fah", meta: "Luxury Hub", icon: "hotel" },
+            { category: "TRANSIT", title: "HKT International", meta: "Entry Point", icon: "plane-landing" },
+            { category: "CULTURE", title: "Old Phuket Town", meta: "Heritage Walk", icon: "landmark" },
+            { category: "SPIRITUAL", title: "The Big Buddha", meta: "Nagaserd Peak", icon: "mountain" },
+            { category: "NIGHTLIFE", title: "Bangla Road", meta: "Patong Pulse", icon: "zap" },
+            { category: "ISLAND", title: "Maya Bay", meta: "The Beach", icon: "palmtree" },
+            { category: "ISLAND", title: "James Bond Island", meta: "Phang Nga Bay", icon: "anchor" },
+            { category: "SHOPPING", title: "Jungceylon Mall", meta: "Retail Therapy", icon: "shopping-bag" }
+        ];
+
+        const categories = [
+            { category: "Flights", cost: "₹35,000", detail: "Round trip connecting flights with baggage", icon: "plane" },
+            { category: "Total Stay", cost: "₹18,000", detail: "Ramada Plaza Chao Fah Luxury Stay", icon: "building" },
+            { category: "Activity & Gear", cost: "₹25,000", detail: "Island Tours, Spas & Rental Gear", icon: "camera" },
+            { category: "SIM & Insurance", cost: "₹2,500", detail: "Unlimited Data + Travel Coverage", icon: "shield" },
+        ];
+
+        const logEntries = [
+            { item: "Ramada Plaza Chao Fah", cost: "2,100 THB", sub: "Full Stay Accommodation" },
+            { item: "Island Expeditions", cost: "5,400 THB", sub: "Maya Bay (2,800) & James Bond (2,600) • 2 Pax" },
+            { item: "Wellness & Spas", cost: "3,800 THB", sub: "Full Body Spa, Patong & Ramada" },
+            { item: "Culinary & Dining", cost: "4,500 THB", sub: "Royal Kitchen, Tandoori Flames, Ramada Dining" },
+            { item: "Transit & Curios", cost: "2,500 THB", sub: "Local Cabs (500) & Shopping/Souvenirs (2,000)" },
+        ];
+
+        let activeDayIdx = 0;
+
+        function renderDayContent(idx) {
+            const day = itineraryData[idx];
+            const container = document.getElementById('itinerary-panel');
+            
+            container.innerHTML = `
+                <div>
+                  <div class="flex justify-between items-start mb-16 pb-8 border-b border-white/5">
+                    <div>
+                      <h3 class="text-5xl md:text-6xl mb-3 italic">${day.title}</h3>
+                      <div class="flex items-center gap-3 amber-text text-xs font-bold uppercase tracking-widest">
+                        <i data-lucide="calendar" size="14"></i>
+                        ${day.date}
+                      </div>
+                    </div>
+                    <div class="h-14 w-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-xl font-bold italic amber-text">
+                      ${day.day}
+                    </div>
+                  </div>
+
+                  <div class="space-y-8">
+                    <div class="flex gap-6 items-start group">
+                        <div class="mt-1 p-2.5 rounded-xl bg-white/5 border border-white/5 amber-text group-hover:amber-bg group-hover:text-black transition-all">
+                            <i data-lucide="map-pin" size="18"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500">Location</span>
+                            <p class="text-white text-xl font-medium">${day.city}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-6 items-start group">
+                        <div class="mt-1 p-2.5 rounded-xl bg-white/5 border border-white/5 amber-text group-hover:amber-bg group-hover:text-black transition-all">
+                            <i data-lucide="info" size="18"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500">Highlights</span>
+                            <p class="text-[#cbd5e1] text-lg leading-relaxed font-light max-w-xl">${day.detail}</p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-white/5 flex items-center justify-between">
+                    <div class="flex items-center gap-3 text-slate-400 text-xs font-bold tracking-[0.2em] uppercase">
+                      Island Chronicles Series 01
+                    </div>
+                    <div class="flex items-center gap-2 bg-amber-500/10 amber-text px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border border-amber-500/20">
+                      <i data-lucide="plus" size="12"></i> Expedition
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function setupNav() {
+            const container = document.getElementById('day-nav-container');
+            itineraryData.forEach((item, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `day-button w-full text-left p-5 rounded-2xl transition-all flex items-center justify-between border bg-white/5 border-white/5 text-slate-400 hover:bg-white/10 ${idx === activeDayIdx ? 'active' : ''}`;
+                btn.innerHTML = `
+                    <div>
+                      <span class="day-label text-[10px] font-bold uppercase tracking-widest block mb-1 amber-text/70 transition-colors">${item.date}</span>
+                      <span class="font-bold text-base block">${item.title}</span>
+                    </div>
+                    <i data-lucide="plus" size="14" class="${idx === activeDayIdx ? 'opacity-100' : 'opacity-20'}"></i>
+                `;
+                btn.onclick = () => {
+                    document.querySelectorAll('.day-button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    activeDayIdx = idx;
+                    renderDayContent(idx);
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function populateDirectory() {
+            const container = document.getElementById('directory-grid');
+            directoryData.forEach(item => {
+                container.innerHTML += `
+                    <div class="directory-card glass-panel rounded-3xl p-6 flex flex-col justify-between h-48 border-white/5">
+                        <div class="flex justify-between items-start">
+                            <div class="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center amber-text">
+                                <i data-lucide="${item.icon}" size="18"></i>
+                            </div>
+                            <span class="text-[9px] font-black tracking-[0.2em] text-slate-500 uppercase">${item.category}</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white leading-tight mb-1">${item.title}</h3>
+                            <p class="text-[10px] font-medium tracking-widest text-slate-500 uppercase italic">${item.meta}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function populateStaticSections() {
+            // Ledger
+            const catsContainer = document.getElementById('categories-container');
+            categories.forEach(c => {
+                catsContainer.innerHTML += `
+                    <div class="group pb-2">
+                       <div class="flex justify-between items-center mb-2">
+                         <div class="flex items-center gap-4">
+                            <div class="p-2 rounded-lg bg-white/5 amber-text"><i data-lucide="${c.icon}" size="18"></i></div>
+                            <span class="text-slate-200 uppercase tracking-widest text-xs font-bold">${c.category}</span>
+                         </div>
+                         <span class="text-xl font-light text-amber-200 italic">${c.cost}</span>
+                       </div>
+                       <p class="text-[11px] text-slate-500 ml-14 font-medium italic">${c.detail}</p>
+                       <div class="h-[1px] w-full bg-gradient-to-r from-white/10 to-transparent mt-4"></div>
+                    </div>
+                `;
+            });
+
+            // Log
+            const logContainer = document.getElementById('log-entries-container');
+            logEntries.forEach(l => {
+                logContainer.innerHTML += `
+                    <div class="group border-b border-white/[0.02] pb-4">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-slate-100 font-semibold group-hover:amber-text transition-colors text-sm">${l.item}</span>
+                            <span class="text-amber-100/80 font-mono text-sm">${l.cost}</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 font-medium italic leading-relaxed">${l.sub}</p>
+                    </div>
+                `;
+            });
+        }
+
+        window.onload = () => {
+            setupNav();
+            renderDayContent(0);
+            populateDirectory();
+            populateStaticSections();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
